@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HotelWebsite.Models.MusteriHesabi>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h4>Müşteri Hesap</h4>
+<p>
+    @Html.ActionLink("Hesap Oluştur", "Yeni", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table-striped alert-danger col-md-12">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(Model => Model.sonHesap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.girisTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.cikisTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.kisiSayisi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.odaNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.musteriNo)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(Model => item.sonHesap)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.girisTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.cikisTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.kisiSayisi)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.odaNo)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.musteriNo)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Duzenle", new { id = item.islemNo }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Sil", "Sil", new { id = item.islemNo }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

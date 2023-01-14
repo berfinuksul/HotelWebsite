@@ -1,0 +1,56 @@
+﻿@model HotelWebsite.Models.Odalar
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Sil</h2>
+
+<h4>Silmek istediğinize emin misiniz?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.odaFiyat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.odaFiyat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.yatakSayisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yatakSayisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.odaTuru)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.odaTuru)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.servisNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.servisNo)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-primary" /> |
+            @Html.ActionLink("Geri", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HotelWebsite.Models.MusteriKayit>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h4>Müşteriler</h4>
+<p>
+    @Html.ActionLink("Müşteri Oluştur", "Yeni", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table-striped alert-danger col-md-12">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(Model => Model.ad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.soyad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.cinsiyet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.adres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.telefon)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(Model => item.ad)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.soyad)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.cinsiyet)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.adres)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.telefon)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Duzenle", new { id = item.musteriNo }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Sil", "Sil", new { id = item.musteriNo }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+

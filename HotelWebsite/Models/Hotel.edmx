@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MusteriHesabi">
+          <Key>
+            <PropertyRef Name="islemNo" />
+          </Key>
+          <Property Name="islemNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sonHesap" Type="varchar" MaxLength="50" />
+          <Property Name="girisTarihi" Type="varchar" MaxLength="50" />
+          <Property Name="cikisTarihi" Type="varchar" MaxLength="50" />
+          <Property Name="kisiSayisi" Type="int" />
+          <Property Name="odaNo" Type="int" />
+          <Property Name="musteriNo" Type="int" />
+        </EntityType>
+        <EntityType Name="MusteriKayit">
+          <Key>
+            <PropertyRef Name="musteriNo" />
+          </Key>
+          <Property Name="musteriNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="varchar" MaxLength="50" />
+          <Property Name="soyad" Type="varchar" MaxLength="50" />
+          <Property Name="cinsiyet" Type="char" MaxLength="5" />
+          <Property Name="adres" Type="varchar" MaxLength="50" />
+          <Property Name="telefon" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Odalar">
+          <Key>
+            <PropertyRef Name="odaNo" />
+          </Key>
+          <Property Name="odaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="odaFiyat" Type="money" />
+          <Property Name="yatakSayisi" Type="int" />
+          <Property Name="odaTuru" Type="varchar" MaxLength="50" />
+          <Property Name="servisNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Servisler">
+          <Key>
+            <PropertyRef Name="servisNo" />
+          </Key>
+          <Property Name="servisNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="varchar" MaxLength="50" />
+          <Property Name="ucret" Type="money" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="Role" Type="int" />
+        </EntityType>
+        <Association Name="FK_MusteriHesabi_MusteriKayit">
+          <End Role="MusteriKayit" Type="Self.MusteriKayit" Multiplicity="0..1" />
+          <End Role="MusteriHesabi" Type="Self.MusteriHesabi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MusteriKayit">
+              <PropertyRef Name="musteriNo" />
+            </Principal>
+            <Dependent Role="MusteriHesabi">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MusteriHesabi_Odalar">
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="0..1" />
+          <End Role="MusteriHesabi" Type="Self.MusteriHesabi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odalar">
+              <PropertyRef Name="odaNo" />
+            </Principal>
+            <Dependent Role="MusteriHesabi">
+              <PropertyRef Name="odaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odalar_Servisler">
+          <End Role="Servisler" Type="Self.Servisler" Multiplicity="0..1" />
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servisler">
+              <PropertyRef Name="servisNo" />
+            </Principal>
+            <Dependent Role="Odalar">
+              <PropertyRef Name="servisNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelModelStoreContainer">
+          <EntitySet Name="MusteriHesabi" EntityType="Self.MusteriHesabi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MusteriKayit" EntityType="Self.MusteriKayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odalar" EntityType="Self.Odalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servisler" EntityType="Self.Servisler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MusteriHesabi_MusteriKayit" Association="Self.FK_MusteriHesabi_MusteriKayit">
+            <End Role="MusteriKayit" EntitySet="MusteriKayit" />
+            <End Role="MusteriHesabi" EntitySet="MusteriHesabi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MusteriHesabi_Odalar" Association="Self.FK_MusteriHesabi_Odalar">
+            <End Role="Odalar" EntitySet="Odalar" />
+            <End Role="MusteriHesabi" EntitySet="MusteriHesabi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odalar_Servisler" Association="Self.FK_Odalar_Servisler">
+            <End Role="Servisler" EntitySet="Servisler" />
+            <End Role="Odalar" EntitySet="Odalar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MusteriHesabi">
+          <Key>
+            <PropertyRef Name="islemNo" />
+          </Key>
+          <Property Name="islemNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sonHesap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="girisTarihi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cikisTarihi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kisiSayisi" Type="Int32" />
+          <Property Name="odaNo" Type="Int32" />
+          <Property Name="musteriNo" Type="Int32" />
+          <NavigationProperty Name="MusteriKayit" Relationship="Self.FK_MusteriHesabi_MusteriKayit" FromRole="MusteriHesabi" ToRole="MusteriKayit" />
+          <NavigationProperty Name="Odalar" Relationship="Self.FK_MusteriHesabi_Odalar" FromRole="MusteriHesabi" ToRole="Odalar" />
+        </EntityType>
+        <EntityType Name="MusteriKayit">
+          <Key>
+            <PropertyRef Name="musteriNo" />
+          </Key>
+          <Property Name="musteriNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cinsiyet" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="adres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="MusteriHesabis" Relationship="Self.FK_MusteriHesabi_MusteriKayit" FromRole="MusteriKayit" ToRole="MusteriHesabi" />
+        </EntityType>
+        <EntityType Name="Odalar">
+          <Key>
+            <PropertyRef Name="odaNo" />
+          </Key>
+          <Property Name="odaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="odaFiyat" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="yatakSayisi" Type="Int32" />
+          <Property Name="odaTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="servisNo" Type="Int32" />
+          <NavigationProperty Name="MusteriHesabis" Relationship="Self.FK_MusteriHesabi_Odalar" FromRole="Odalar" ToRole="MusteriHesabi" />
+          <NavigationProperty Name="Servisler" Relationship="Self.FK_Odalar_Servisler" FromRole="Odalar" ToRole="Servisler" />
+        </EntityType>
+        <EntityType Name="Servisler">
+          <Key>
+            <PropertyRef Name="servisNo" />
+          </Key>
+          <Property Name="servisNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ucret" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Odalars" Relationship="Self.FK_Odalar_Servisler" FromRole="Servisler" ToRole="Odalar" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="Role" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_MusteriHesabi_MusteriKayit">
+          <End Role="MusteriKayit" Type="Self.MusteriKayit" Multiplicity="0..1" />
+          <End Role="MusteriHesabi" Type="Self.MusteriHesabi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MusteriKayit">
+              <PropertyRef Name="musteriNo" />
+            </Principal>
+            <Dependent Role="MusteriHesabi">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MusteriHesabi_Odalar">
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="0..1" />
+          <End Role="MusteriHesabi" Type="Self.MusteriHesabi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odalar">
+              <PropertyRef Name="odaNo" />
+            </Principal>
+            <Dependent Role="MusteriHesabi">
+              <PropertyRef Name="odaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odalar_Servisler">
+          <End Role="Servisler" Type="Self.Servisler" Multiplicity="0..1" />
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servisler">
+              <PropertyRef Name="servisNo" />
+            </Principal>
+            <Dependent Role="Odalar">
+              <PropertyRef Name="servisNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MusteriHesabis" EntityType="Self.MusteriHesabi" />
+          <EntitySet Name="MusteriKayits" EntityType="Self.MusteriKayit" />
+          <EntitySet Name="Odalars" EntityType="Self.Odalar" />
+          <EntitySet Name="Servislers" EntityType="Self.Servisler" />
+          <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
+          <AssociationSet Name="FK_MusteriHesabi_MusteriKayit" Association="Self.FK_MusteriHesabi_MusteriKayit">
+            <End Role="MusteriKayit" EntitySet="MusteriKayits" />
+            <End Role="MusteriHesabi" EntitySet="MusteriHesabis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MusteriHesabi_Odalar" Association="Self.FK_MusteriHesabi_Odalar">
+            <End Role="Odalar" EntitySet="Odalars" />
+            <End Role="MusteriHesabi" EntitySet="MusteriHesabis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odalar_Servisler" Association="Self.FK_Odalar_Servisler">
+            <End Role="Servisler" EntitySet="Servislers" />
+            <End Role="Odalar" EntitySet="Odalars" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities3">
+          <EntitySetMapping Name="MusteriHesabis">
+            <EntityTypeMapping TypeName="HotelModel.MusteriHesabi">
+              <MappingFragment StoreEntitySet="MusteriHesabi">
+                <ScalarProperty Name="islemNo" ColumnName="islemNo" />
+                <ScalarProperty Name="sonHesap" ColumnName="sonHesap" />
+                <ScalarProperty Name="girisTarihi" ColumnName="girisTarihi" />
+                <ScalarProperty Name="cikisTarihi" ColumnName="cikisTarihi" />
+                <ScalarProperty Name="kisiSayisi" ColumnName="kisiSayisi" />
+                <ScalarProperty Name="odaNo" ColumnName="odaNo" />
+                <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MusteriKayits">
+            <EntityTypeMapping TypeName="HotelModel.MusteriKayit">
+              <MappingFragment StoreEntitySet="MusteriKayit">
+                <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odalars">
+            <EntityTypeMapping TypeName="HotelModel.Odalar">
+              <MappingFragment StoreEntitySet="Odalar">
+                <ScalarProperty Name="odaNo" ColumnName="odaNo" />
+                <ScalarProperty Name="odaFiyat" ColumnName="odaFiyat" />
+                <ScalarProperty Name="yatakSayisi" ColumnName="yatakSayisi" />
+                <ScalarProperty Name="odaTuru" ColumnName="odaTuru" />
+                <ScalarProperty Name="servisNo" ColumnName="servisNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servislers">
+            <EntityTypeMapping TypeName="HotelModel.Servisler">
+              <MappingFragment StoreEntitySet="Servisler">
+                <ScalarProperty Name="servisNo" ColumnName="servisNo" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="ucret" ColumnName="ucret" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="HotelModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

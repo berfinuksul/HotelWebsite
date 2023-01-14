@@ -1,0 +1,73 @@
+﻿@model HotelWebsite.Models.MusteriHesabi
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Sil</h2>
+
+<h4>Silmek istediğinize emin misiniz?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sonHesap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sonHesap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.girisTarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.girisTarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cikisTarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cikisTarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kisiSayisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kisiSayisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.odaNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.odaNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriNo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-primary" /> |
+            @Html.ActionLink("Geri", "Index")
+        </div>
+    }
+</div>
